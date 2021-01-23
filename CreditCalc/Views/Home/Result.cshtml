@@ -1,0 +1,34 @@
+﻿@model CreditCalc.Models.PaymentsTable
+@{
+    ViewData["Title"] = "Таблица платежей";
+}
+<h1>@ViewData["Title"]</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Номер платежа</th>
+            <th>Дата платежа</th>
+            <th>Сумма платежа</th>
+            <th>Размер платежа по телу</th>
+            <th>Размер платежа по %</th>
+            <th>Остаток основного долга</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var payment in Model.payments)
+        {
+            <tr>
+                <td>@(payment.Id + 1)</td>
+                <td>@payment.Date.ToString("d")</td>
+                <td>@payment.MainPayment.ToString("C")</td>
+                <td>@payment.PaymentAmountByBody.ToString("C")</td>
+                <td>@payment.PaymentAmountByInterest.ToString("C")</td>
+                <td>@payment.RemainingPrincipalDebt.ToString("C")</td>                
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a>Итого переплаты по кредиту: @((Model.payments.Count * Model.payments.FirstOrDefault(p=>p.Id==0).MainPayment - 
+                                 Model.payments.FirstOrDefault(p => p.Id == 0).RemainingPrincipalDebt).ToString("C"))</a>

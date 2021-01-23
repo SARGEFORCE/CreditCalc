@@ -1,0 +1,61 @@
+﻿@model CreditCalc.Models.InputData
+@{
+    ViewData["Title"] = "Кредитный калькулятор";
+}
+
+<section id="form">
+    <!--form-->
+    <div class="container">
+        <h2>@ViewData["Title"]</h2>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="cf-title">Введите данные по кредиту</div>
+                <form asp-controller="Home" asp-action="Result" asp-antiforgery="true">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <a>Сумма кредита</a>
+                            <label asp-for="sum" class="sr-only"></label>
+                            <input asp-for="sum" placeholder="Сумма кредита" />
+                            <span asp-validation-for="sum" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <a>Срок кредитования</a>
+                            <label asp-for="termCount" class="sr-only"></label>
+                            <input asp-for="termCount" placeholder="Срок кредитования" />
+                            <span asp-validation-for="termCount" class="text-danger"></span>
+                        </div>
+
+                        <div>
+                            <select asp-for="termId" asp-items="ViewBag.Terms"></select>
+                        </div>
+
+                        <div class="form-group">
+                            <a>Процентная ставка</a>
+                            <label asp-for="interestRate" class="sr-only"></label>
+                            <input asp-for="interestRate" placeholder="Процентная ставка" />
+                            <span asp-validation-for="interestRate" class="text-danger"></span>
+                        </div>
+
+                        <div>
+                            <select asp-for="interestRatePeriodId" asp-items="ViewBag.InterestRatePeriods"></select>
+                        </div>
+
+                        <div>
+                            <select asp-for="periodInDays" asp-items="ViewBag.PeriodInDays"></select>
+                        </div>
+
+                    </div>
+                    <hr />
+                    <button type="submit" class="btn btn-light">Рассчитать!</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section><!--/form-->
+
+@section scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
